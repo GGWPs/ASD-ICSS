@@ -32,4 +32,9 @@ public class BoolLiteral extends Literal {
     public int hashCode() {
         return Objects.hash(value);
     }
+
+    public String getValue(){
+        return Boolean.toString(value);
+    }
+
 }

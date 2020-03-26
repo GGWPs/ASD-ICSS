@@ -31,4 +31,8 @@ public class PixelLiteral extends Literal {
     public int hashCode() {
         return Objects.hash(value);
     }
+
+    public String getValue(){
+        return value + "px";
+    }
 }

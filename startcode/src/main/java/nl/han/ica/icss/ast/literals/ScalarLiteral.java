@@ -31,4 +31,8 @@ public class ScalarLiteral extends Literal {
     public int hashCode() {
         return Objects.hash(value);
     }
+
+    public String getValue(){
+        return Integer.toString(value);
+    }
 }

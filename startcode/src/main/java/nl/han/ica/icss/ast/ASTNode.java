@@ -58,11 +58,11 @@ public class ASTNode {
 	}
 	private void toString(StringBuilder builder) {
 		builder.append("[");
-		builder.append(getNodeLabel());	
+		builder.append(getNodeLabel());
 		builder.append("|");
 		for(ASTNode child : getChildren()) {
 			child.toString(builder);
-		}	
+		}
 		builder.append("]");
 	}
 
@@ -81,5 +81,9 @@ public class ASTNode {
             }
         }
         return true;
+    }
+
+    public String getValue(){
+        return "";
     }
 }
