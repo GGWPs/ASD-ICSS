@@ -55,9 +55,9 @@ expression: literal #literalexpression | variablereference #varref | expression 
 variablereference: CAPITAL_IDENT;
 selector: ID_IDENT #selectorId | CLASS_IDENT #selectorClass| LOWER_IDENT #selectorTag;
 declaration: propertyName COLON (expression+) SEMICOLON | variableassignment;
-if_statement: IF BOX_BRACKET_OPEN (variablereference|boolliteral) BOX_BRACKET_CLOSE OPEN_BRACE (declaration|if_statement)+ CLOSE_BRACE;
 
-//Level 3:
+//Level 3
+if_statement: IF BOX_BRACKET_OPEN (variablereference|boolliteral) BOX_BRACKET_CLOSE OPEN_BRACE (declaration|if_statement)+ CLOSE_BRACE;
 scalarliteral: SCALAR;
 pixelliteral:PIXELSIZE;
 percentageliteral:PERCENTAGE;

@@ -19,17 +19,17 @@ public class RemoveIf implements Transform {
 
     private void checkIfStatements(ASTNode parent){
         for(ASTNode node : parent.getChildren()){
-            if(node instanceof IfClause){
-                checkIfStatements(node);
+            if(node instanceof IfClause){ //Check of de ASTNode een IfClause is
+                checkIfStatements(node); //Voer de functie recursief uit
                 BoolLiteral boolLit = (BoolLiteral)((IfClause) node).conditionalExpression;
-                if(boolLit.value) {
+                if(boolLit.value) { //Als conditie van IfClause TRUE is.
                     for (ASTNode child : node.getChildren()) {
                         if (child instanceof Declaration) {
-                            parent.addChild(child);
+                            parent.addChild(child); //Voeg body toe.
                         }
                     }
                 }
-                parent.removeChild(node);
+                parent.removeChild(node); //Als conditie false is, verwijder de hele IfClause node.
             }
         }
     }

@@ -33,7 +33,7 @@ public class PercentageLiteral extends Literal {
     }
 
     public String getValue(){
-        return Integer.toString(value);
+        return value + "%";
     }
 
 }

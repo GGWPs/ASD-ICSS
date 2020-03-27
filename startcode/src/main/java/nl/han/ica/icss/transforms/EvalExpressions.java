@@ -25,14 +25,16 @@ public class EvalExpressions implements Transform {
         traverseThroughTreeAndApplyTransformation(ast.root);
     }
 
+    //Functie om door een ASTBoom te doorlopen en transformatie toe te passen.
     public void traverseThroughTreeAndApplyTransformation(ASTNode node) {
         for (ASTNode nodes : node.getChildren()) {
             if(nodes instanceof Stylerule){
                 variableValues.add(new HashMap<String, Literal>());
                 ++currentScope;
             }
+            //Check of het een variabel assigned.
             if (nodes instanceof VariableAssignment) {
-                if (((VariableAssignment) nodes).expression instanceof Operation) {
+                if (((VariableAssignment) nodes).expression instanceof Operation) { //Indien er een som bij betrokken is, calculeer hem eerst en voeg hem daarna toe.
                     Literal resultOfOperation = calculateOperation((Operation) ((VariableAssignment) nodes).expression);
                     nodes.removeChild(((VariableAssignment) nodes).expression);
                     nodes.addChild(resultOfOperation);
@@ -64,7 +66,7 @@ public class EvalExpressions implements Transform {
     private Literal calculateOperation(Operation node) {
         replaceChildOperationByLiteral(node);
         replaceChildReferencesByLiteral(node);
-
+        //Als de AST een optelsom bevat, tel de waarden op
         if(node instanceof AddOperation) {
             if (node.lhs instanceof PercentageLiteral) {
                 int resultValue = ((PercentageLiteral) node.lhs).value + ((PercentageLiteral) node.rhs).value;
@@ -82,7 +84,7 @@ public class EvalExpressions implements Transform {
                 return result;
             }
         }
-
+        //Als de AST een aftrek som bevat, voer de som uit.
         if(node instanceof SubtractOperation){
             if (node.lhs instanceof PercentageLiteral) {
                 int resultValue = ((PercentageLiteral) node.lhs).value - ((PercentageLiteral) node.rhs).value;
@@ -100,7 +102,7 @@ public class EvalExpressions implements Transform {
                 return result;
             }
         }
-
+        //Als het een vermenigvuldig som, vermenigvuldig de waarden.
         if(node instanceof MultiplyOperation){
             int resultValue = ((ScalarLiteral)node.lhs).value * ((ScalarLiteral)node.rhs).value;
             ScalarLiteral result = new ScalarLiteral(resultValue);
